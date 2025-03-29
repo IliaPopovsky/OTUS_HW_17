@@ -29,13 +29,24 @@ int currX = A_WIDTH / 2;
 int currY = 0;
 
 int main() {
+    char read_symbol = 0;
+    printf("Game tetris.\n");
+    printf("Press:\n");
+    printf("1) p for play\n");
+    printf("2) e or any other key (except p) to exit\n");
+    scanf("%c", &read_symbol);
+    while(getchar() != '\n')
+        continue;
+    if(read_symbol != 'p')
+       exit(0);
+    new:
     printf("Cursor");  // clear screen & reset cursor position
     memset(arena, 0, sizeof(arena[0][0]) * A_HEIGHT * A_WIDTH);
     newTetromino();
 
     const int targetFrameTime = 350;
     clock_t lastTime = clock();
-
+    
     while (!gameOver) {
         clock_t now = clock();
         clock_t elapsed = (now - lastTime) * 1000 / CLOCKS_PER_SEC;
@@ -54,6 +65,21 @@ int main() {
         Sleep(10);
     }
     printf("\nGame over!\nScore: %d\n", score);
+    printf("Press:\n");
+    printf("1) p for new play\n");
+    printf("2) e or any other key (except p) to exit\n");
+    scanf("%c", &read_symbol);
+    while(getchar() != '\n')
+        continue;
+    if(read_symbol != 'p')
+    {
+       exit(0);
+    }
+    else
+    {
+        score = 0;
+        goto new;
+    }
     return 0;
 }
 
